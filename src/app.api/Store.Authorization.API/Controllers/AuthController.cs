@@ -13,9 +13,8 @@ using System.Threading.Tasks;
 
 namespace Store.Authorization.API.Controllers
 {
-    [ApiController]
     [Route("api/auth")]
-    public class AuthController : Controller
+    public class AuthController : BaseController
     {
         public readonly SignInManager<IdentityUser> _signInManager;
         public readonly UserManager<IdentityUser> _userManager;
@@ -33,7 +32,7 @@ namespace Store.Authorization.API.Controllers
         [HttpPost("create-user")]
         public async Task<IActionResult> CreateUser(UserRegistrationDTO userDTO)
         {
-            if (ModelState.IsValid == false) return BadRequest();
+            if (ModelState.IsValid == false) return CustomResponse(ModelState);
 
             var user = new IdentityUser
             {
@@ -46,26 +45,35 @@ namespace Store.Authorization.API.Controllers
 
             if (result.Succeeded == false)
             {
-                return BadRequest();
+                foreach (var error in result.Errors) 
+                    AddError(error.Description);
+
+                return CustomResponse();
             }
 
-            await _signInManager.SignInAsync(user, isPersistent: false);
-            return Ok(await CreateJWT(userDTO.Email));
+            return CustomResponse(await CreateJWT(userDTO.Email));
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserLoginDTO userDTO)
         {
-            if (ModelState.IsValid == false) return BadRequest();
+            if (ModelState.IsValid == false) return CustomResponse(ModelState);
 
             var result = await _signInManager.PasswordSignInAsync(userDTO.Email, userDTO.Password, false, true);
 
             if (result.Succeeded == false)
             {
-                return BadRequest();
+                if(result.IsLockedOut)
+                {
+                    AddError("User temporarily blocked for invalid attempts");
+                    return CustomResponse();
+                }
+
+                AddError("Incorrect username or password");
+                return CustomResponse();
             }
 
-            return Ok(await CreateJWT(userDTO.Email));
+            return CustomResponse(await CreateJWT(userDTO.Email));
         }
 
         private async Task<UserResponseLogin> CreateJWT(string email)
