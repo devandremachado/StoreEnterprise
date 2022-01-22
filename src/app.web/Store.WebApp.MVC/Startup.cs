@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Store.Authorization.API.Configuration;
 using Store.WebApp.MVC.Configuration;
 
 namespace Store.WebApp.MVC
@@ -20,6 +21,8 @@ namespace Store.WebApp.MVC
             services.AddIdentityConfiguration();
 
             services.AddMvcConfiguration();
+
+            services.RegisterServices();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

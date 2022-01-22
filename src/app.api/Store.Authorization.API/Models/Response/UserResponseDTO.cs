@@ -4,7 +4,7 @@ namespace Store.Authorization.API.Models.Response
 {
     public class UserResponseLogin
     {
-        public string AccesToken { get; set; }
+        public string AccessToken { get; set; }
         public double ExpirationIn { get; set; }
         public UserToken UserToken { get; set; }
     }

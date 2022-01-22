@@ -132,7 +132,7 @@ namespace Store.Authorization.API.Controllers
         {
             return new UserResponseLogin
             {
-                AccesToken = encodedToken,
+                AccessToken = encodedToken,
                 ExpirationIn = TimeSpan.FromHours(_appSettings.ExpirationHours).TotalSeconds,
                 UserToken = new UserToken
                 {
