@@ -5,6 +5,8 @@ using Microsoft.IdentityModel.Tokens;
 using Store.Authorization.API.Extensions;
 using Store.Authorization.API.Models;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -80,22 +82,36 @@ namespace Store.Authorization.API.Controllers
         {
             var user = await _userManager.FindByEmailAsync(email);
             var userClaims = await _userManager.GetClaimsAsync(user);
+
+            var identityClaims = await GetUserClaims(userClaims, user);
+            var encodedToken = TokenEncoder(identityClaims);
+          
+            return GetResponseToken(encodedToken, user, userClaims);
+        }
+
+        private async Task<ClaimsIdentity> GetUserClaims(ICollection<Claim> claims, IdentityUser user)
+        {
             var userRoles = await _userManager.GetRolesAsync(user);
 
-            userClaims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.Id));
-            userClaims.Add(new Claim(JwtRegisteredClaimNames.Email, user.Email));
-            userClaims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())); //Token Id
-            userClaims.Add(new Claim(JwtRegisteredClaimNames.Nbf, DateTime.UtcNow.ToUnixEpochDate().ToString())); //Data expiração token
-            userClaims.Add(new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToUnixEpochDate().ToString(), ClaimValueTypes.Integer64)); // Data emissao token
+            claims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.Id));
+            claims.Add(new Claim(JwtRegisteredClaimNames.Email, user.Email));
+            claims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())); //Token Id
+            claims.Add(new Claim(JwtRegisteredClaimNames.Nbf, DateTime.UtcNow.ToUnixEpochDate().ToString())); //Data expiração token
+            claims.Add(new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToUnixEpochDate().ToString(), ClaimValueTypes.Integer64)); // Data emissao token
 
             foreach (var userRole in userRoles)
             {
-                userClaims.Add(new Claim("role", userRole));
+                claims.Add(new Claim("role", userRole));
             }
 
             var identityClaims = new ClaimsIdentity();
-            identityClaims.AddClaims(userClaims);
+            identityClaims.AddClaims(claims);
 
+            return identityClaims;
+        }
+
+        private string TokenEncoder(ClaimsIdentity claimsIdentity)
+        {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
 
@@ -103,14 +119,17 @@ namespace Store.Authorization.API.Controllers
             {
                 Issuer = _appSettings.Issuer,
                 Audience = _appSettings.Audience,
-                Subject = identityClaims,
+                Subject = claimsIdentity,
                 Expires = DateTime.UtcNow.AddHours(_appSettings.ExpirationHours),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             });
 
-            var encodedToken = tokenHandler.WriteToken(token);
+            return tokenHandler.WriteToken(token);
+        }
 
-            var response = new UserResponseLogin
+        private UserResponseLogin GetResponseToken(string encodedToken, IdentityUser user, IEnumerable<Claim> claims)
+        {
+            return new UserResponseLogin
             {
                 AccesToken = encodedToken,
                 ExpirationIn = TimeSpan.FromHours(_appSettings.ExpirationHours).TotalSeconds,
@@ -118,11 +137,9 @@ namespace Store.Authorization.API.Controllers
                 {
                     Id = user.Id,
                     Email = user.Email,
-                    Claims = userClaims.Select(x => new UserClaim { Type = x.Type, Value = x.Value })
+                    Claims = claims.Select(x => new UserClaim { Type = x.Type, Value = x.Value })
                 }
             };
-
-            return response;
         }
     }
 }
