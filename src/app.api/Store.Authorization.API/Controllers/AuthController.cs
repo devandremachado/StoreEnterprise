@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace Store.Authorization.API.Controllers
 {
+    [ApiController]
     [Route("api/auth")]
     public class AuthController : Controller
     {
