@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Store.Authorization.API.Models
 {
@@ -26,4 +27,25 @@ namespace Store.Authorization.API.Models
         [StringLength(100, MinimumLength = 6)]
         public string Password { get; set; }
     }
+
+    public class UserResponseLogin
+    {
+        public string AccesToken { get; set; }
+        public double ExpirationIn { get; set; }
+        public UserToken UserToken { get; set; }
+    }
+
+    public class UserToken
+    {
+        public string Id { get; set; }
+        public string Email { get; set; }
+        public IEnumerable<UserClaim> Claims { get; set; }
+    }
+
+    public class UserClaim
+    {
+        public string Value { get; set; }
+        public string Type { get; set; }
+    }
+
 }
