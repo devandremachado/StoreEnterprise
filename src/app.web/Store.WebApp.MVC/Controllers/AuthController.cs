@@ -26,8 +26,9 @@ namespace Store.WebApp.MVC.Controllers
 
         [HttpGet]
         [Route("login")]
-        public IActionResult Login()
+        public IActionResult Login(string returnUrl = null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
@@ -51,19 +52,24 @@ namespace Store.WebApp.MVC.Controllers
         #region Actions
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login(UserLoginDTO loginDTO)
+        public async Task<IActionResult> Login(UserLoginDTO loginDTO, string returnUrl = null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
+
             if (ModelState.IsValid == false)
                 return View(loginDTO);
 
             var response = await _authService.Login(loginDTO);
 
-            if(HasResponseError(response.ResponseResult))
+            if (HasResponseError(response.ResponseResult))
                 return View(loginDTO);
 
+            await SignInUser(response);
 
-            await AddUserInCookie(response);
-            return RedirectToAction("Index", "Home");
+            if (string.IsNullOrEmpty(returnUrl))
+                return RedirectToAction("Index", "Home");
+
+            return LocalRedirect(returnUrl);
         }
 
 
@@ -79,7 +85,7 @@ namespace Store.WebApp.MVC.Controllers
             if (HasResponseError(response.ResponseResult))
                 return View(userDTO);
 
-            await AddUserInCookie(response);
+            await SignInUser(response);
             return RedirectToAction("Index", "Home");
         }
 
@@ -87,7 +93,7 @@ namespace Store.WebApp.MVC.Controllers
 
         #region Methods
 
-        private async Task AddUserInCookie(UserTokenJwt user)
+        private async Task SignInUser(UserTokenJwt user)
         {
             var token = new JwtSecurityTokenHandler().ReadJwtToken(user.AccessToken);
 
