@@ -1,16 +1,20 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Store.WebApp.MVC.Extensions;
 using Store.WebApp.MVC.Extensions.Middleware;
 
 namespace Store.WebApp.MVC.Configuration
 {
     public static class WebAppConfig
     {
-        public static IServiceCollection AddMvcConfiguration(this IServiceCollection services)
+        public static IServiceCollection AddMvcConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddControllersWithViews();
+
+            services.Configure<AppSettings>(configuration);
 
             return services;
         }
