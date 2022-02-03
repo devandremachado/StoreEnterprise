@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Store.Catalog.infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Store.WebAPI.Service.Authorization;
 
 namespace Store.Catalog.API.Configuration
 {
@@ -41,6 +42,8 @@ namespace Store.Catalog.API.Configuration
             app.UseRouting();
 
             app.UseCors("FullAccess");
+
+            app.UseAuthorizationConfiguration();
 
             app.UseEndpoints(endpoints =>
             {

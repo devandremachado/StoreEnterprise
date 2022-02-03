@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\shared\Store.WebAPI.Service\Store.WebAPI.Service.csproj" />
     <ProjectReference Include="..\Store.Catalog.infrastructure\Store.Catalog.infrastructure.csproj" />
   </ItemGroup>
 </Project>

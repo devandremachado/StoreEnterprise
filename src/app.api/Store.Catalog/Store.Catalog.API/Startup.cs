@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Store.Catalog.API.Configuration;
+using Store.WebAPI.Service.Authorization;
+
 namespace Store.Catalog.API
 {
     public class Startup
@@ -17,6 +19,8 @@ namespace Store.Catalog.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApiConfiguration(Configuration);
+
+            services.AddJwtConfiguration(Configuration);
 
             services.RegisterServices();
 

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
+using Store.WebAPI.Service.Authorization;
 
 namespace Store.Authorization.API.Configuration
 {
@@ -25,7 +26,7 @@ namespace Store.Authorization.API.Configuration
 
             app.UseRouting();
 
-            app.UseIdentityConfiguration();
+            app.UseAuthorizationConfiguration();
 
             app.UseEndpoints(endpoints =>
             {

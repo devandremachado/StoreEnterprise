@@ -1,4 +1,4 @@
-﻿namespace Store.Shared.DomainObjects
+﻿namespace Store.Shared.Core.DomainObjects
 {
     public interface IAggregateRoot
     {

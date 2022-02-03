@@ -1,4 +1,4 @@
-﻿using Store.Shared.DomainObjects;
+﻿using Store.Shared.Core.DomainObjects;
 using System;
 
 namespace Store.Catalog.Domain.Entities

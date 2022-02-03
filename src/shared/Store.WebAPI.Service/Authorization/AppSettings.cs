@@ -1,4 +1,4 @@
-﻿namespace Store.Authorization.API.Extensions
+﻿namespace Store.WebAPI.Service.Authorization
 {
     public class AppSettings
     {

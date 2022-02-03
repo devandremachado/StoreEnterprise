@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Store.Shared.DomainObjects
+namespace Store.Shared.Core.DomainObjects
 {
     public abstract class Entity
     {

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Store.Shared.Data
+namespace Store.Shared.Core.Data
 {
     public interface IUnitOfWork
     {

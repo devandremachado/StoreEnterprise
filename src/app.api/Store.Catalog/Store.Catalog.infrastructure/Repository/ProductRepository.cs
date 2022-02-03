@@ -2,7 +2,7 @@
 using Store.Catalog.Domain.Entities;
 using Store.Catalog.Domain.Interfaces;
 using Store.Catalog.infrastructure.Context;
-using Store.Shared.Data;
+using Store.Shared.Core.Data;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

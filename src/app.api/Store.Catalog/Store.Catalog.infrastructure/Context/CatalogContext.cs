@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Store.Catalog.Domain.Entities;
-using Store.Shared.Data;
+using Store.Shared.Core.Data;
 using System.Linq;
 using System.Threading.Tasks;
 

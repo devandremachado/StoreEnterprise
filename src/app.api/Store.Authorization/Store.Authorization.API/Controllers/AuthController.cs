@@ -6,6 +6,7 @@ using Store.Authorization.API.Extensions;
 using Store.Authorization.API.Models.Request;
 using Store.Authorization.API.Models.Response;
 using Store.Authorization.API.Models.User;
+using Store.WebAPI.Service.Authorization;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
