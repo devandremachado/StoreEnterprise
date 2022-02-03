@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
-using Store.WebApp.MVC.Models.User.Request;
+using Store.WebApp.MVC.Models.DTO.User.Request;
 using Store.WebApp.MVC.Models.User.Token;
 using Store.WebApp.MVC.Services.Interfaces;
 using System;
@@ -14,7 +14,6 @@ namespace Store.WebApp.MVC.Controllers
 {
     public class AuthController : BaseController
     {
-
         private readonly IAuthService _authService;
 
         public AuthController(IAuthService authService)
@@ -52,7 +51,7 @@ namespace Store.WebApp.MVC.Controllers
         #region Actions
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login(UserLoginDTO loginDTO, string returnUrl = null)
+        public async Task<IActionResult> Login(UserLoginRequestDTO loginDTO, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
 
@@ -75,7 +74,7 @@ namespace Store.WebApp.MVC.Controllers
 
         [HttpPost]
         [Route("nova-conta")]
-        public async Task<IActionResult> CreateUser(UserRequestDTO userDTO)
+        public async Task<IActionResult> CreateUser(CreateUserAuthRequestDTO userDTO)
         {
             if (ModelState.IsValid == false)
                 return View(userDTO);

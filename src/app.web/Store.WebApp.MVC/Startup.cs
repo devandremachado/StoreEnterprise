@@ -33,8 +33,6 @@ namespace Store.WebApp.MVC
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseIdentityConfiguration();
-
             app.UseMvcConfiguration(env);
         }
     }

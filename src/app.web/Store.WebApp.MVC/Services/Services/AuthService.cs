@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.Options;
 using Store.WebApp.MVC.Extensions;
+using Store.WebApp.MVC.Helpers;
 using Store.WebApp.MVC.Models;
-using Store.WebApp.MVC.Models.User.Request;
+using Store.WebApp.MVC.Models.DTO.User.Request;
 using Store.WebApp.MVC.Models.User.Token;
 using Store.WebApp.MVC.Services.Interfaces;
 using System;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Store.WebApp.MVC.Services
 {
-    public class AuthService : Service, IAuthService
+    public class AuthService : HttpResponseHelper, IAuthService
     {
         private readonly HttpClient _httpClient;
 
@@ -22,7 +23,7 @@ namespace Store.WebApp.MVC.Services
             _httpClient = httpClient;
         }
 
-        public async Task<UserTokenJwt> CreateUser(UserRequestDTO user)
+        public async Task<UserTokenJwt> CreateUser(CreateUserAuthRequestDTO user)
         {
             var content = GetContent(user);
 
@@ -39,7 +40,7 @@ namespace Store.WebApp.MVC.Services
             return await DeserializeResponse<UserTokenJwt>(response);
         }
 
-        public async Task<UserTokenJwt> Login(UserLoginDTO user)
+        public async Task<UserTokenJwt> Login(UserLoginRequestDTO user)
         {
             var content = GetContent(user);
 

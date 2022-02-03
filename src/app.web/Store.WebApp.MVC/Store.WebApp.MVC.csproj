@@ -15,7 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\User\Response\" />
+    <Folder Include="Models\DTO\User\Response\" />
+    <Folder Include="Views\Catalog\" />
   </ItemGroup>
 
   <ItemGroup>

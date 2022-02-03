@@ -1,13 +1,12 @@
 ﻿using Store.WebApp.MVC.Extensions;
-using System;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Store.WebApp.MVC.Services
+namespace Store.WebApp.MVC.Helpers
 {
-    public abstract class Service
+    public abstract class HttpResponseHelper
     {
         protected StringContent GetContent(object data)
         {
