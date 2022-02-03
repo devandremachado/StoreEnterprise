@@ -34,6 +34,7 @@ namespace Store.Catalog.API.Controllers
         [Route("products/{id}")]
         public async Task<Product> GetProductById(Guid id)
         {
+            throw new Exception("Q");
             return await _productRepository.GetById(id);
         }
     }

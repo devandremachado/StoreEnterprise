@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Store.WebApp.MVC.Extensions;
 using Store.WebApp.MVC.Extensions.Interfaces;
+using Store.WebApp.MVC.Extensions.Polly;
 using Store.WebApp.MVC.Services;
 using Store.WebApp.MVC.Services.Interfaces;
 using Store.WebApp.MVC.Services.Services;
@@ -18,12 +19,16 @@ namespace Store.Authorization.API.Configuration
             services.AddHttpClient<IAuthService, AuthService>();
 
             services.AddHttpClient<ICatalogService, CatalogService>()
-                .AddHttpMessageHandler<HttpClientAuthorizationDelegationHandler>();
+                .AddHttpMessageHandler<HttpClientAuthorizationDelegationHandler>()
+                //.AddTransientHttpErrorPolicy(x => x.WaitAndRetryAsync(3, _ => TimeSpan.FromMilliseconds(600)));
+                .AddPolicyHandler(PollyExtensions.RetryWaitPolicy());
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IUser, AspNetUser>();
 
             return services;
         }
+
+        
     }
 }
