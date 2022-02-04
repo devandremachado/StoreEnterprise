@@ -3,7 +3,7 @@ using System.Text;
 using System.Threading;
 using Microsoft.AspNetCore.Mvc.Razor;
 
-namespace NSE.WebApp.MVC.Extensions
+namespace Store.WebApp.MVC.Extensions.Razor
 {
     public static class RazorHelpers
     {
