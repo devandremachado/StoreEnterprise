@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Store.WebApp.MVC.Helpers
 {
-    public abstract class HttpResponseHelper
+    public abstract class Service
     {
         protected StringContent GetContent(object data)
         {

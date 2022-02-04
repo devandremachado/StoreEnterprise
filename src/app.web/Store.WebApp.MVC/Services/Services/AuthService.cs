@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Store.WebApp.MVC.Services
 {
-    public class AuthService : HttpResponseHelper, IAuthService
+    public class AuthService : Service, IAuthService
     {
         private readonly HttpClient _httpClient;
 

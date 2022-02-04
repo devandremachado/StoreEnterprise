@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Polly;
 using Store.WebApp.MVC.Extensions;
 using Store.WebApp.MVC.Extensions.Interfaces;
 using Store.WebApp.MVC.Extensions.Polly;
@@ -7,6 +8,7 @@ using Store.WebApp.MVC.Services;
 using Store.WebApp.MVC.Services.Interfaces;
 using Store.WebApp.MVC.Services.Services;
 using Store.WebApp.MVC.Services.Services.Handlers;
+using System;
 
 namespace Store.Authorization.API.Configuration
 {
@@ -19,9 +21,9 @@ namespace Store.Authorization.API.Configuration
             services.AddHttpClient<IAuthService, AuthService>();
 
             services.AddHttpClient<ICatalogService, CatalogService>()
-                .AddHttpMessageHandler<HttpClientAuthorizationDelegationHandler>()
-                //.AddTransientHttpErrorPolicy(x => x.WaitAndRetryAsync(3, _ => TimeSpan.FromMilliseconds(600)));
-                .AddPolicyHandler(PollyExtensions.RetryWaitPolicy());
+                .AddHttpMessageHandler<HttpClientAuthorizationDelegationHandler>() //Intercepta o SendAsync do HttpClient para adicionar o header jwt
+                .AddPolicyHandler(PollyExtensions.RetryWaitPolicy())
+                .AddTransientHttpErrorPolicy(p => p.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IUser, AspNetUser>();

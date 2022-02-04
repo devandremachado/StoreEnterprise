@@ -22,27 +22,39 @@ namespace Store.WebApp.MVC.Controllers
 
             if (id == 500)
             {
-                modelErro.Message = "Ocorreu um erro! Tente novamente mais tarde ou contate nosso suporte.";
                 modelErro.Title = "Ocorreu um erro!";
+                modelErro.Message = "Ocorreu um erro! Tente novamente mais tarde ou contate nosso suporte.";
                 modelErro.ErrorCode = id;
             }
             else if (id == 404)
             {
-                modelErro.Message =
-                    "A página que está procurando não existe! <br />Em caso de dúvidas entre em contato com nosso suporte";
                 modelErro.Title = "Ops! Página não encontrada.";
+                modelErro.Message = "A página que está procurando não existe! <br />Em caso de dúvidas entre em contato com nosso suporte";
                 modelErro.ErrorCode = id;
             }
             else if (id == 403)
             {
-                modelErro.Message = "Você não tem permissão para fazer isto.";
                 modelErro.Title = "Acesso Negado";
+                modelErro.Message = "Você não tem permissão para fazer isto.";
                 modelErro.ErrorCode = id;
             }
             else
             {
                 return StatusCode(404);
             }
+
+            return View("Error", modelErro);
+        }
+
+        [Route("sistema-indisponivel")]
+        public IActionResult SystemUnavailable()
+        {
+            var modelErro = new ErrorViewModel
+            {
+                Title = "Sistema indisponível",
+                Message = "O sistema está temporariamente indisponível, isto pode ocorrer em momentos de sobrecarga de usuários.",
+                ErrorCode = 500
+            };
 
             return View("Error", modelErro);
         }

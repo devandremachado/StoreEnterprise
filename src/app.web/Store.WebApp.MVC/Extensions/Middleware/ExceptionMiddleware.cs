@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Polly.CircuitBreaker;
+using System;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -22,6 +24,15 @@ namespace Store.WebApp.MVC.Extensions.Middleware
             catch (CustomHttpRequestException ex)
             {
                 HandleRequestExceptionAsync(httpContext, ex);
+
+            }
+            catch (BrokenCircuitException)
+            {
+                HandleSystemUnavailable(httpContext);
+            }
+            catch (Exception)
+            {
+                HandleSystemUnavailable(httpContext);
             }
         }
 
@@ -34,6 +45,11 @@ namespace Store.WebApp.MVC.Extensions.Middleware
             }
 
             context.Response.StatusCode = (int)httpRequestException.StatusCode;
+        }
+
+        private static void HandleSystemUnavailable(HttpContext context)
+        {
+            context.Response.Redirect("/sistema-indisponivel");
         }
     }
 }

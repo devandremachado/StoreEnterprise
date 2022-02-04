@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Store.WebApp.MVC.Services.Services
 {
-    public class CatalogService : HttpResponseHelper, ICatalogService
+    public class CatalogService : Service, ICatalogService
     {
         private readonly HttpClient _httpClient;
 
