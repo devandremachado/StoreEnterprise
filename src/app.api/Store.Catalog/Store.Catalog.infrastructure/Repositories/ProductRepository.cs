@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Store.Catalog.Domain.Entities;
 using Store.Catalog.Domain.Interfaces;
-using Store.Catalog.infrastructure.Context;
+using Store.Catalog.Infrastructure.Context;
 using Store.Shared.Core.Data;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Store.Catalog.infrastructure.Repository
+namespace Store.Catalog.Infrastructure.Repositories
 {
     public class ProductRepository : IProductRepository
     {

@@ -4,7 +4,7 @@ using Store.Shared.Core.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Store.Catalog.infrastructure.Context
+namespace Store.Catalog.Infrastructure.Context
 {
     public class CatalogContext : DbContext, IUnitOfWork
     {

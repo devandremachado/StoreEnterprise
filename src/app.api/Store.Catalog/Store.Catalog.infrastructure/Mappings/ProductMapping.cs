@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Store.Catalog.Domain.Entities;
 
-namespace Store.Catalog.infrastructure.Mappings
+namespace Store.Catalog.Infrastructure.Mappings
 {
     public class ProductMapping : IEntityTypeConfiguration<Product>
     {
