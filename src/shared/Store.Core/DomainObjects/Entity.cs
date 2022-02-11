@@ -4,7 +4,7 @@ namespace Store.Shared.Core.DomainObjects
 {
     public abstract class Entity
     {
-        public Guid Id { get; private set; }
+        public Guid Id { get; set; }
 
         protected Entity()
         {

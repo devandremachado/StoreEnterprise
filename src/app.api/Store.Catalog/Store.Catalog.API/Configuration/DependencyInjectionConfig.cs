@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Store.Catalog.Domain.Interfaces;
-using Store.Catalog.infrastructure.Context;
-using Store.Catalog.infrastructure.Repository;
+using Store.Catalog.Infrastructure.Context;
+using Store.Catalog.Infrastructure.Repositories;
 
 namespace Store.Catalog.API.Configuration
 {

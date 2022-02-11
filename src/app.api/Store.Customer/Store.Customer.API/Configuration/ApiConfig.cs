@@ -1,19 +1,18 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
-using Store.Catalog.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Store.WebAPI.Service.Authorization;
+using Microsoft.Extensions.DependencyInjection;
+using Store.Customers.Infrastructure.Context;
+using Microsoft.Extensions.Hosting;
 
-namespace Store.Catalog.API.Configuration
+namespace Store.Customers.API.Configuration
 {
     public static class ApiConfig
     {
         public static IServiceCollection AddApiConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<CatalogContext>(options =>
+            services.AddDbContext<CustomerContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllers();
@@ -42,8 +41,6 @@ namespace Store.Catalog.API.Configuration
             app.UseRouting();
 
             app.UseCors("FullAccess");
-
-            app.UseAuthorizationConfiguration();
 
             app.UseEndpoints(endpoints =>
             {
