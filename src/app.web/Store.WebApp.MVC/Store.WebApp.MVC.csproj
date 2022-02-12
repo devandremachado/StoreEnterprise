@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\DTO\User\Response\**" />
+    <Content Remove="Models\DTO\User\Response\**" />
+    <EmbeddedResource Remove="Models\DTO\User\Response\**" />
+    <None Remove="Models\DTO\User\Response\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.13" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.13" />
     <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="6.0.1" />
@@ -16,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\DTO\User\Response\" />
     <Folder Include="Views\Catalog\" />
   </ItemGroup>
 
@@ -73,6 +79,10 @@
     <None Include="wwwroot\lib\jquery\dist\jquery.js" />
     <None Include="wwwroot\lib\jquery\dist\jquery.min.js" />
     <None Include="wwwroot\lib\jquery\dist\jquery.min.map" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\shared\Store.Core\Store.Shared.Core.csproj" />
   </ItemGroup>
   
 </Project>

@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using Microsoft.Extensions.DependencyInjection;
 using Polly;
 using Store.WebApp.MVC.Extensions;
+using Store.WebApp.MVC.Extensions.AnnotationAttributes;
 using Store.WebApp.MVC.Extensions.Interfaces;
 using Store.WebApp.MVC.Extensions.Polly;
 using Store.WebApp.MVC.Services;
@@ -16,6 +18,8 @@ namespace Store.Authorization.API.Configuration
     {
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
+            services.AddSingleton<IValidationAttributeAdapterProvider, CPFValidationAttributeAdapterProvider>();
+
             services.AddTransient<HttpClientAuthorizationDelegationHandler>();
 
             services.AddHttpClient<IAuthService, AuthService>();
