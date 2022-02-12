@@ -4,4 +4,13 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="CQRS\Queries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\shared\Store.Core\Store.Shared.Core.csproj" />
+    <ProjectReference Include="..\Store.Customer.Domain\Store.Customers.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

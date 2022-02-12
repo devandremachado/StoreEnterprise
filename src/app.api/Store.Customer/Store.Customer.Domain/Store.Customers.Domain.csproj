@@ -7,7 +7,6 @@
   <ItemGroup>
     <Folder Include="Commands\Interfaces\" />
     <Folder Include="Handlers\Interfaces\" />
-    <Folder Include="Repositories\" />
   </ItemGroup>
 
   <ItemGroup>

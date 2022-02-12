@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Store.Shared.Core.Messages;
+using System;
+using System.Collections.Generic;
 
 namespace Store.Shared.Core.DomainObjects
 {
@@ -11,6 +13,27 @@ namespace Store.Shared.Core.DomainObjects
             Id = Guid.NewGuid();
         }
 
+        private List<Event> _notifications;
+        public IReadOnlyCollection<Event> Notifications => _notifications?.AsReadOnly();
+
+        public void AddNotificationEvent(Event @event)
+        {
+            _notifications ??= new List<Event>();
+            _notifications.Add(@event);
+        }
+
+        public void RemoveNotificationEvent(Event @event)
+        {
+            _notifications?.Remove(@event);
+        }
+
+        public void ClearNotificationEvent()
+        {
+            _notifications?.Clear();
+        }
+
+
+        #region Operations
         public override bool Equals(object obj)
         {
             var comparteTo = obj as Entity;
@@ -43,5 +66,7 @@ namespace Store.Shared.Core.DomainObjects
         {
             return $"{GetType().Name} [Id={Id}]";
         }
+
+        #endregion
     }
 }

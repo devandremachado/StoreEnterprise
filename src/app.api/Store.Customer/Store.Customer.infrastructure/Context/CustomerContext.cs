@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Store.Customers.Domain.Entities;
 using Store.Shared.Core.Data;
+using Store.Shared.Core.DomainObjects;
+using Store.Shared.Core.Mediator;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,8 +10,13 @@ namespace Store.Customers.Infrastructure.Context
 {
     public sealed class CustomerContext : DbContext, IUnitOfWork
     {
-        public CustomerContext(DbContextOptions<CustomerContext> options) : base(options)
+
+        private readonly IMediatorHandler _mediatorHandler;
+
+        public CustomerContext(DbContextOptions<CustomerContext> options, IMediatorHandler mediatorHandler) : base(options)
         {
+            _mediatorHandler = mediatorHandler;
+
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
             ChangeTracker.AutoDetectChangesEnabled = false;
         }
@@ -37,7 +44,38 @@ namespace Store.Customers.Infrastructure.Context
 
         public async Task<bool> Commit()
         {
-            return await base.SaveChangesAsync() > 0;
+            var commitSuccessfully = await base.SaveChangesAsync() > 0;
+
+            if (commitSuccessfully)
+                await _mediatorHandler.PublishEvents(this);
+
+            return commitSuccessfully;
+        }
+    }
+
+
+    public static class MediatorExtension
+    {
+        public static async Task PublishEvents<T>(this IMediatorHandler mediator, T context) where T : DbContext
+        {
+            var domainEntites = context.ChangeTracker
+                .Entries<Entity>()
+                .Where(x => x.Entity.Notifications != null && x.Entity.Notifications.Any());
+
+            var domainEvents = domainEntites
+                .SelectMany(x => x.Entity.Notifications)
+                .ToList();
+
+            domainEntites.ToList()
+                .ForEach(x => x.Entity.ClearNotificationEvent());
+
+            var tasks = domainEvents
+                .Select(async (domainEvents) =>
+                {
+                    await mediator.PublishEvent(domainEvents);
+                });
+
+            await Task.WhenAll(tasks);
         }
     }
 }
