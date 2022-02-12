@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Store.Customers.Application.Application;
+using Store.Customers.Domain.Entities.Commands;
 using Store.Shared.Core.Mediator;
 using Store.WebAPI.Service.Controllers;
 using System;

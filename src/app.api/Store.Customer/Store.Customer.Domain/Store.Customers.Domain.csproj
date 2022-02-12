@@ -5,12 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\Interfaces\" />
-    <Folder Include="Handlers\Interfaces\" />
+    <ProjectReference Include="..\..\..\shared\Store.Core\Store.Shared.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\shared\Store.Core\Store.Shared.Core.csproj" />
+    <Folder Include="Queries\" />
   </ItemGroup>
 
 </Project>

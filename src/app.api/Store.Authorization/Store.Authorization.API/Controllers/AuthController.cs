@@ -2,10 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Store.Authorization.API.Extensions;
 using Store.Authorization.API.Models.Request;
 using Store.Authorization.API.Models.Response;
 using Store.Authorization.API.Models.User;
+using Store.Shared.Core.Messages.Integration.Events.Request;
+using Store.Shared.Core.Messages.Integration.Events.Response;
+using Store.Shared.Core.Utils.Extensions;
+using Store.Shared.MessageBus.Interfaces;
 using Store.WebAPI.Service.Authorization;
 using Store.WebAPI.Service.Controllers;
 using System;
@@ -21,17 +24,20 @@ namespace Store.Authorization.API.Controllers
     [Route("api/auth")]
     public class AuthController : BaseController
     {
-        public readonly SignInManager<IdentityUser> _signInManager;
-        public readonly UserManager<IdentityUser> _userManager;
-        public readonly AppSettings _appSettings;
+        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly AppSettings _appSettings;
+        private readonly IMessageBus _bus;
 
-        public AuthController(SignInManager<IdentityUser> signInManager, 
+        public AuthController(SignInManager<IdentityUser> signInManager,
                               UserManager<IdentityUser> userManager,
-                              IOptions<AppSettings> appSettings)
+                              IOptions<AppSettings> appSettings,
+                              IMessageBus bus)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _appSettings = appSettings.Value;
+            _bus = bus;
         }
 
         [HttpPost("create-user")]
@@ -43,17 +49,23 @@ namespace Store.Authorization.API.Controllers
             {
                 UserName = userDTO.Email,
                 Email = userDTO.Email,
-                EmailConfirmed = true 
+                EmailConfirmed = true
             };
 
             var result = await _userManager.CreateAsync(user, userDTO.Password);
-
             if (result.Succeeded == false)
             {
-                foreach (var error in result.Errors) 
+                foreach (var error in result.Errors)
                     AddError(error.Description);
 
                 return CustomResponse();
+            }
+
+            var customerResult = await CreateCustomer(userDTO);
+            if (customerResult.ValidationResult.IsValid == false)
+            {
+                await _userManager.DeleteAsync(user);
+                return CustomResponse(customerResult.ValidationResult);
             }
 
             return CustomResponse(await CreateJWT(userDTO.Email));
@@ -68,7 +80,7 @@ namespace Store.Authorization.API.Controllers
 
             if (result.Succeeded == false)
             {
-                if(result.IsLockedOut)
+                if (result.IsLockedOut)
                 {
                     AddError("User temporarily blocked for invalid attempts");
                     return CustomResponse();
@@ -88,7 +100,7 @@ namespace Store.Authorization.API.Controllers
 
             var identityClaims = await GetUserClaims(userClaims, user);
             var encodedToken = TokenEncoder(identityClaims);
-          
+
             return GetResponseToken(encodedToken, user, userClaims);
         }
 
@@ -143,6 +155,24 @@ namespace Store.Authorization.API.Controllers
                     Claims = claims.Select(x => new UserClaim { Type = x.Type, Value = x.Value })
                 }
             };
+        }
+
+        private async Task<ResponseMessage> CreateCustomer(UserRegistrationDTO userDTO)
+        {
+            var user = await _userManager.FindByEmailAsync(userDTO.Email);
+
+            var userCreated = new CreateUserIntegrationEvent
+                (Guid.Parse(user.Id), userDTO.Name, userDTO.Email, userDTO.CPF);
+
+            try
+            {
+                return await _bus.RequestAsync<CreateUserIntegrationEvent, ResponseMessage>(userCreated);
+            }
+            catch
+            {
+                await _userManager.DeleteAsync(user);
+                throw;
+            }
         }
     }
 }

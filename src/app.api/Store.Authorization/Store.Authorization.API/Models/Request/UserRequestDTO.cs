@@ -5,6 +5,11 @@ namespace Store.Authorization.API.Models.Request
     public class UserRegistrationDTO
     {
         [Required]
+        public string Name { get; set; }
+        [Required]
+        public string CPF { get; set; }
+
+        [Required]
         [EmailAddress]
         public string Email { get; set; }
 

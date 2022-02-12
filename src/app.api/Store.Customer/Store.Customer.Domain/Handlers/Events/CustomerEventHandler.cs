@@ -1,8 +1,9 @@
 ﻿using MediatR;
+using Store.Customers.Domain.Entities.Events;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Store.Customers.Application.CQRS.Events.Handlers
+namespace Store.Customers.Domain.Handlers.Events
 {
     public class CustomerEventHandler : INotificationHandler<CreateCustomerEvent>
     {

@@ -1,14 +1,14 @@
 ﻿using FluentValidation.Results;
 using MediatR;
-using Store.Customers.Application.Application;
-using Store.Customers.Application.CQRS.Events;
 using Store.Customers.Domain.Entities;
+using Store.Customers.Domain.Entities.Commands;
+using Store.Customers.Domain.Entities.Events;
 using Store.Customers.Domain.Repositories;
 using Store.Shared.Core.Messages;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Store.Customers.Application.CQRS.Commands.Handlers
+namespace Store.Customers.Domain.Handlers.Commands
 {
     public class CustomerCommandHandler : CommandHandler,
                                           IRequestHandler<CreateCustomerCommand, ValidationResult>

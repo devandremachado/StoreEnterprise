@@ -21,6 +21,8 @@ namespace Store.Authorization.API
 
             services.AddApiConfiguration();
 
+            services.AddMessageBusConfiguration(Configuration);
+
             services.AddSwaggerConfiguration();
         }
 

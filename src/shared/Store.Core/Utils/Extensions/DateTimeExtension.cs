@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Store.Authorization.API.Extensions
+namespace Store.Shared.Core.Utils.Extensions
 {
     public static class DateTimeExtension
     {

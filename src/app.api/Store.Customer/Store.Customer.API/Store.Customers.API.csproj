@@ -23,6 +23,7 @@
     <ProjectReference Include="..\..\Store.Catalog\Store.Catalog.infrastructure\Store.Catalog.Infrastructure.csproj" />
     <ProjectReference Include="..\Store.Customer.Application\Store.Customers.Application.csproj" />
     <ProjectReference Include="..\Store.Customer.infrastructure\Store.Customers.Infrastructure.csproj" />
+    <ProjectReference Include="..\Store.Customers.Infrastructure.Workers\Store.Customers.Infrastructure.Workers.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,13 +1,12 @@
-﻿using Store.Shared.Core.Messages;
+﻿using Store.Shared.Core.Messages.Integration.Contracts;
 using System;
 
-namespace Store.Customers.Application.CQRS.Events
+namespace Store.Shared.Core.Messages.Integration.Events.Request
 {
-    public class CreateCustomerEvent : Event
+    public class CreateUserIntegrationEvent : IntegrationEvent
     {
-        public CreateCustomerEvent(Guid id, string name, string email, string cpf)
+        public CreateUserIntegrationEvent(Guid id, string name, string email, string cpf)
         {
-            AggregateId = id;
             Id = id;
             Name = name;
             Email = email;
