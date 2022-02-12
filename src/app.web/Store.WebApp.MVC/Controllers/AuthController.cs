@@ -43,7 +43,7 @@ namespace Store.WebApp.MVC.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Catalog");
         }
 
         #endregion
@@ -66,7 +66,7 @@ namespace Store.WebApp.MVC.Controllers
             await SignInUser(response);
 
             if (string.IsNullOrEmpty(returnUrl))
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Catalog");
 
             return LocalRedirect(returnUrl);
         }
@@ -85,7 +85,7 @@ namespace Store.WebApp.MVC.Controllers
                 return View(userDTO);
 
             await SignInUser(response);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Catalog");
         }
 
         #endregion

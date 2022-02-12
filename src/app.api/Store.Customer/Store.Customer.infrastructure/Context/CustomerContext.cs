@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FluentValidation.Results;
+using Microsoft.EntityFrameworkCore;
 using Store.Customers.Domain.Entities;
 using Store.Shared.Core.Data;
 using Store.Shared.Core.DomainObjects;
 using Store.Shared.Core.Mediator;
+using Store.Shared.Core.Messages;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -26,6 +28,9 @@ namespace Store.Customers.Infrastructure.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Ignore<ValidationResult>();
+            modelBuilder.Ignore<Event>();
+
             foreach (var property in modelBuilder.Model.GetEntityTypes()
                 .SelectMany(e => e.GetProperties()
                 .Where(p => p.ClrType == typeof(string))))

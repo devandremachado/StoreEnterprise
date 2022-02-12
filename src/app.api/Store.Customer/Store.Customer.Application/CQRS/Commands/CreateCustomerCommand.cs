@@ -7,13 +7,13 @@ namespace Store.Customers.Application.Application
 {
     public class CreateCustomerCommand : Command
     {
-        public CreateCustomerCommand(Guid id, string name, string email, string cPF)
+        public CreateCustomerCommand(Guid id, string name, string email, string cpf)
         {
             AggregateId = id;
             Id = id;
             Name = name;
             Email = email;
-            CPF = cPF;
+            CPF = cpf;
         }
 
         public Guid Id { get; private set; }

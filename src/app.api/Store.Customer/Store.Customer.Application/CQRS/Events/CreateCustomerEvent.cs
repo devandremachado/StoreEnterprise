@@ -5,13 +5,13 @@ namespace Store.Customers.Application.CQRS.Events
 {
     public class CreateCustomerEvent : Event
     {
-        public CreateCustomerEvent(Guid id, string name, string email, string cPF)
+        public CreateCustomerEvent(Guid id, string name, string email, string cpf)
         {
             AggregateId = id;
             Id = id;
             Name = name;
             Email = email;
-            CPF = cPF;
+            CPF = cpf;
         }
 
         public Guid Id { get; private set; }

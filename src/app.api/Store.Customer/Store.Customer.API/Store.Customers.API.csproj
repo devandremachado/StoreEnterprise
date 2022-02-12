@@ -19,10 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\..\shared\Store.WebAPI.Service\Store.WebAPI.Service.csproj" />
     <ProjectReference Include="..\..\Store.Catalog\Store.Catalog.infrastructure\Store.Catalog.Infrastructure.csproj" />
     <ProjectReference Include="..\Store.Customer.Application\Store.Customers.Application.csproj" />

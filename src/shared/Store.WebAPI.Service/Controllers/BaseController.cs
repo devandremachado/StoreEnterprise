@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation.Results;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Store.Authorization.API.Controllers
+namespace Store.WebAPI.Service.Controllers
 {
     [ApiController]
     public abstract class BaseController : Controller
@@ -12,7 +13,7 @@ namespace Store.Authorization.API.Controllers
 
         protected IActionResult CustomResponse(object result = null)
         {
-            if(IsValid())
+            if (IsValid())
             {
                 return Ok(result);
             }
@@ -28,6 +29,16 @@ namespace Store.Authorization.API.Controllers
             var errors = modelState.Values.SelectMany(x => x.Errors);
 
             foreach (var error in errors)
+            {
+                AddError(error.ErrorMessage);
+            }
+
+            return CustomResponse();
+        }
+
+        protected IActionResult CustomResponse(ValidationResult validationResult)
+        {
+            foreach (var error in validationResult.Errors)
             {
                 AddError(error.ErrorMessage);
             }

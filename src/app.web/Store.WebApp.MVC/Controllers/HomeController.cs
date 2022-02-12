@@ -5,17 +5,8 @@ namespace Store.WebApp.MVC.Controllers
 {
     public class HomeController : BaseController
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
         [Route("erro/{id:length(3,3)}")]
+        [HttpGet]
         public IActionResult Error(int id)
         {
             var modelErro = new ErrorViewModel();
@@ -47,6 +38,7 @@ namespace Store.WebApp.MVC.Controllers
         }
 
         [Route("sistema-indisponivel")]
+        [HttpGet]
         public IActionResult SystemUnavailable()
         {
             var modelErro = new ErrorViewModel

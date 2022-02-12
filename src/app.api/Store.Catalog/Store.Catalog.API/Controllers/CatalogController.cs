@@ -3,16 +3,16 @@ using Microsoft.AspNetCore.Mvc;
 using Store.Catalog.Domain.Entities;
 using Store.Catalog.Domain.Interfaces;
 using Store.WebAPI.Service.Authorization;
+using Store.WebAPI.Service.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Store.Catalog.API.Controllers
 {
-    [ApiController]
     [Authorize]
     [Route("api/catalog")]
-    public class CatalogController : Controller
+    public class CatalogController : BaseController
     {
         private readonly IProductRepository _productRepository;
 
