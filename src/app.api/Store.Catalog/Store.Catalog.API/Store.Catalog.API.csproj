@@ -19,6 +19,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\shared\Store.WebAPI.Service\Store.WebAPI.Service.csproj" />
-    <ProjectReference Include="..\Store.Catalog.infrastructure\Store.Catalog.Infrastructure.csproj" />
+    <ProjectReference Include="..\Store.Catalog.infrastructure\Store.Catalog.Infra.Data.csproj" />
   </ItemGroup>
 </Project>

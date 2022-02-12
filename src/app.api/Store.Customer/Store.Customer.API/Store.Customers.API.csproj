@@ -20,10 +20,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\shared\Store.WebAPI.Service\Store.WebAPI.Service.csproj" />
-    <ProjectReference Include="..\..\Store.Catalog\Store.Catalog.infrastructure\Store.Catalog.Infrastructure.csproj" />
-    <ProjectReference Include="..\Store.Customer.Application\Store.Customers.Application.csproj" />
-    <ProjectReference Include="..\Store.Customer.infrastructure\Store.Customers.Infrastructure.csproj" />
-    <ProjectReference Include="..\Store.Customers.Infrastructure.Workers\Store.Customers.Infrastructure.Workers.csproj" />
+    <ProjectReference Include="..\..\Store.Catalog\Store.Catalog.infrastructure\Store.Catalog.Infra.Data.csproj" />
+    <ProjectReference Include="..\Store.Customer.infrastructure\Store.Customers.Infra.Data.csproj" />
+    <ProjectReference Include="..\Store.Customers.Infrastructure.Workers\Store.Customers.Infra.Workers.csproj" />
   </ItemGroup>
 
 </Project>
