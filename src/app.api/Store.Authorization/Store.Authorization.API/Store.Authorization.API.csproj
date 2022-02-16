@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\app.web\Store.WebApp.MVC\Store.WebApp.MVC.csproj" />
     <ProjectReference Include="..\..\..\shared\Store.Shared.MessageBus\Store.Shared.MessageBus.csproj" />
     <ProjectReference Include="..\..\..\shared\Store.WebAPI.Service\Store.WebAPI.Service.csproj" />
     <ProjectReference Include="..\..\Store.Customer\Store.Customers.Infrastructure.Workers\Store.Customers.Infra.Workers.csproj" />

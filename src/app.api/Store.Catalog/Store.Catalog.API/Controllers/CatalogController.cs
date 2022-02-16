@@ -29,7 +29,7 @@ namespace Store.Catalog.API.Controllers
             return await _productRepository.GetAll();
         }
 
-        [ClaimsAuthorize("catalog", "read")]
+        //[ClaimsAuthorize("catalog", "read")]
         [HttpGet]
         [Route("products/{id}")]
         public async Task<Product> GetProductById(Guid id)

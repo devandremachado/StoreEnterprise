@@ -26,9 +26,7 @@ namespace Store.Customers.Infrastructure.Workers.Services
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            _bus.RespondAsync<CreateUserIntegrationEvent, ResponseMessage>(async request => 
-                await CreateCustomer(request));
-
+            SetBusResponder();
             return Task.CompletedTask;
         }
 
@@ -44,6 +42,19 @@ namespace Store.Customers.Infrastructure.Workers.Services
             }
 
             return new ResponseMessage(result);
+        }
+
+        private void OnConnect(Object s, EventArgs e)
+        {
+            SetBusResponder();
+        }
+
+        private void SetBusResponder()
+        {
+            _bus.RespondAsync<CreateUserIntegrationEvent, ResponseMessage>(async request =>
+                await CreateCustomer(request));
+
+            _bus.AdvancedBus.Connected += OnConnect;
         }
 
     }

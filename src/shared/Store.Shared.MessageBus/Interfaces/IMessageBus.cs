@@ -1,4 +1,5 @@
-﻿using Store.Shared.Core.Messages.Integration.Contracts;
+﻿using EasyNetQ;
+using Store.Shared.Core.Messages.Integration.Contracts;
 using Store.Shared.Core.Messages.Integration.Events.Response;
 using System;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ namespace Store.Shared.MessageBus.Interfaces
     public interface IMessageBus : IDisposable
     {
         bool IsConnected { get; }
+        IAdvancedBus AdvancedBus { get; }
 
         void Publish<T>(T message) where T : IntegrationEvent;
 
