@@ -1,4 +1,4 @@
-﻿using Store.WebApp.MVC.Extensions.Interfaces;
+﻿using Store.WebAPI.Service.User.Interfaces;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -9,9 +9,9 @@ namespace Store.WebApp.MVC.Services.Services.Handlers
 {
     public class HttpClientAuthorizationDelegationHandler : DelegatingHandler
     {
-        private readonly IUser _user;
+        private readonly IAspNetUser _user;
 
-        public HttpClientAuthorizationDelegationHandler(IUser user)
+        public HttpClientAuthorizationDelegationHandler(IAspNetUser user)
         {
             _user = user;
         }

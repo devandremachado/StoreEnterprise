@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 
-namespace Store.WebApp.MVC.Extensions.Interfaces
+namespace Store.WebAPI.Service.User.Interfaces
 {
-    public interface IUser
+    public interface IAspNetUser
     {
         string Name { get; }
         Guid GetId();

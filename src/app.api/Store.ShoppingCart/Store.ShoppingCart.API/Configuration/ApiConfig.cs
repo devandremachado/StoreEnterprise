@@ -4,6 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Store.WebAPI.Service.Authorization;
+using Store.Cart.Infra.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Store.Cart.API.Configuration
 {
@@ -11,6 +13,9 @@ namespace Store.Cart.API.Configuration
     {
         public static IServiceCollection AddApiConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddDbContext<CartContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
             services.AddControllers();
 
             services.AddCors(options =>

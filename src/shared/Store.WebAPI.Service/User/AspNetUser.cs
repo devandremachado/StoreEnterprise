@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Store.WebApp.MVC.Extensions.Interfaces;
+using Store.WebAPI.Service.User.Extensions;
+using Store.WebAPI.Service.User.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 
-namespace Store.WebApp.MVC.Extensions
+namespace Store.WebAPI.Service.User
 {
-    public class AspNetUser : IUser
+    public class AspNetUser : IAspNetUser
     {
         private readonly IHttpContextAccessor _accessor;
 

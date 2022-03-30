@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using Microsoft.Extensions.DependencyInjection;
 using Polly;
-using Store.WebApp.MVC.Extensions;
+using Store.WebAPI.Service.User;
+using Store.WebAPI.Service.User.Interfaces;
 using Store.WebApp.MVC.Extensions.AnnotationAttributes;
-using Store.WebApp.MVC.Extensions.Interfaces;
 using Store.WebApp.MVC.Extensions.Polly;
 using Store.WebApp.MVC.Services.Interfaces;
 using Store.WebApp.MVC.Services.Services;
@@ -29,7 +29,7 @@ namespace Store.WebApp.MVC.Configuration
                 .AddTransientHttpErrorPolicy(p => p.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped<IUser, AspNetUser>();
+            services.AddScoped<IAspNetUser, AspNetUser>();
 
             return services;
         }

@@ -83,6 +83,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\shared\Store.Core\Store.Shared.Core.csproj" />
+    <ProjectReference Include="..\..\shared\Store.WebAPI.Service\Store.WebAPI.Service.csproj" />
   </ItemGroup>
   
 </Project>

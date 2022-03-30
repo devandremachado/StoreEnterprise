@@ -1,6 +1,6 @@
-﻿@using Store.WebApp.MVC.Extensions.Interfaces
+﻿@using Store.WebAPI.Service.User.Interfaces
 @using Store.WebApp.MVC.Extensions.Razor
-@inject IUser AppUser
+@inject IAspNetUser AppUser
 
 @if (AppUser.IsAuthenticate())
 {
