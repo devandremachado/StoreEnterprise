@@ -1,13 +1,13 @@
 ﻿using FluentValidation.Results;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using Store.Customers.Domain.Entities.Commands;
-using Store.Customers.Domain.Entities.Events;
+using Store.Customers.Domain.Commands;
+using Store.Customers.Domain.Events;
 using Store.Customers.Domain.Handlers.Commands;
 using Store.Customers.Domain.Handlers.Events;
 using Store.Customers.Domain.Repositories;
-using Store.Customers.Infrastructure.Context;
-using Store.Customers.Infrastructure.Repositories;
+using Store.Customers.Infra.Data.Context;
+using Store.Customers.Infra.Data.Repositories;
 using Store.Shared.Core.Mediator;
 
 namespace Store.Customers.API.Configuration

@@ -2,20 +2,15 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Store.WebAPI.Service.Authorization;
-using Store.Catalog.Infra.Data.Context;
 
-namespace Store.Catalog.API.Configuration
+namespace Store.Cart.API.Configuration
 {
     public static class ApiConfig
     {
         public static IServiceCollection AddApiConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<CatalogContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-
             services.AddControllers();
 
             services.AddCors(options =>

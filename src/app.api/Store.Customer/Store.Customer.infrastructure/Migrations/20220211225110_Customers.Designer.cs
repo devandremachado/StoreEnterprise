@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Store.Customers.Infrastructure.Context;
+using Store.Customers.Infra.Data.Context;
 
 namespace Store.Customers.Infrastructure.Migrations
 {

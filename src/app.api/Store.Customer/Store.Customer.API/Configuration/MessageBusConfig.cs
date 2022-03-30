@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Store.Customers.Infrastructure.Workers.Services;
+using Store.Customers.Infra.Workers.Services;
 using Store.Shared.Core.Utils.Extensions;
 using Store.Shared.MessageBus.Extensions;
 

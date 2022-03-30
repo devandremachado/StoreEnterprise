@@ -8,7 +8,7 @@ using Store.Shared.Core.Messages;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Store.Customers.Infrastructure.Context
+namespace Store.Customers.Infra.Data.Context
 {
     public sealed class CustomerContext : DbContext, IUnitOfWork
     {
@@ -49,7 +49,7 @@ namespace Store.Customers.Infrastructure.Context
 
         public async Task<bool> Commit()
         {
-            var commitSuccessfully = await base.SaveChangesAsync() > 0;
+            var commitSuccessfully = await SaveChangesAsync() > 0;
 
             if (commitSuccessfully)
                 await _mediatorHandler.PublishEvents(this);

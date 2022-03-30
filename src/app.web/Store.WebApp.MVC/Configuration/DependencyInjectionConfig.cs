@@ -6,13 +6,12 @@ using Store.WebApp.MVC.Extensions;
 using Store.WebApp.MVC.Extensions.AnnotationAttributes;
 using Store.WebApp.MVC.Extensions.Interfaces;
 using Store.WebApp.MVC.Extensions.Polly;
-using Store.WebApp.MVC.Services;
 using Store.WebApp.MVC.Services.Interfaces;
 using Store.WebApp.MVC.Services.Services;
 using Store.WebApp.MVC.Services.Services.Handlers;
 using System;
 
-namespace Store.Authorization.API.Configuration
+namespace Store.WebApp.MVC.Configuration
 {
     public static class DependencyInjectionConfig
     {
@@ -35,6 +34,6 @@ namespace Store.Authorization.API.Configuration
             return services;
         }
 
-        
+
     }
 }

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Store.WebApp.MVC.Models
+namespace Store.WebApp.MVC.Models.ViewModels
 {
     public class ErrorViewModel
     {

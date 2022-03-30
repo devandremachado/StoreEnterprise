@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32106.194
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 - Shared", "03 - Shared", "{3FDC91A0-9C35-4DE1-B049-6D12E9766905}"
 EndProject
@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.WebApp.MVC", "src\app
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Shared.Core", "src\shared\Store.Core\Store.Shared.Core.csproj", "{AEA23603-401C-41F2-910C-E53764C32C9B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.ShoppingCart.API", "src\app.api\Store.ShoppingCart\Store.ShoppingCart.API\Store.ShoppingCart.API.csproj", "{13D80AC6-E003-46D4-9904-D8AA5C8C7B51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Cart.API", "src\app.api\Store.ShoppingCart\Store.ShoppingCart.API\Store.Cart.API.csproj", "{13D80AC6-E003-46D4-9904-D8AA5C8C7B51}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Customers.API", "src\app.api\Store.Customer\Store.Customer.API\Store.Customers.API.csproj", "{D57EEE08-741C-4A28-A7AA-D98CCEBEEB2F}"
 EndProject
@@ -37,7 +37,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Store.Order", "Store.Order"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Store.Payment", "Store.Payment", "{2C3CE003-0919-480E-B018-601B92B82AD5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Store.ShoppingCart", "Store.ShoppingCart", "{9833A84B-0815-4360-A02C-E34F6B4416DC}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Store.Cart", "Store.Cart", "{9833A84B-0815-4360-A02C-E34F6B4416DC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - WebApps", "01 - WebApps", "{9288A191-E087-49F7-B1A8-21B7807E92C6}"
 EndProject
@@ -53,13 +53,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Customers.Domain", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Customers.Infra.Data", "src\app.api\Store.Customer\Store.Customer.infrastructure\Store.Customers.Infra.Data.csproj", "{4399C9DA-8748-4B51-9975-808F3896E1C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Customers.Infra.Workers", "src\app.api\Store.Customer\Store.Customers.Infrastructure.Workers\Store.Customers.Infra.Workers.csproj", "{46BF1FE5-17E2-4F1D-80FF-8A5F570630A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Customers.Infra.Workers", "src\app.api\Store.Customer\Store.Customers.Infrastructure.Workers\Store.Customers.Infra.Workers.csproj", "{46BF1FE5-17E2-4F1D-80FF-8A5F570630A1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MessageBus", "MessageBus", "{79B7C0C4-57F7-4ED9-9227-5B592B00ABFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Shared.MessageBus", "src\shared\Store.Shared.MessageBus\Store.Shared.MessageBus.csproj", "{C93EC5F7-EDE0-4EC6-A202-3209C2886CAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Shared.MessageBus", "src\shared\Store.Shared.MessageBus\Store.Shared.MessageBus.csproj", "{C93EC5F7-EDE0-4EC6-A202-3209C2886CAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Customers.Application", "src\app.api\Store.Customer\Store.Customers.Application\Store.Customers.Application.csproj", "{61563895-C53E-4ABF-861D-2FB31DD912FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Customers.Application", "src\app.api\Store.Customer\Store.Customers.Application\Store.Customers.Application.csproj", "{61563895-C53E-4ABF-861D-2FB31DD912FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Cart.Domain", "src\app.api\Store.ShoppingCart\Store.ShoppingCart.Domain\Store.Cart.Domain.csproj", "{FCFE3F4D-7004-4D26-9960-51AC752C55EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Cart.Infra.Data", "src\app.api\Store.ShoppingCart\Store.ShoppingCart.Infra.Data\Store.Cart.Infra.Data.csproj", "{73179455-3373-4391-AC82-045038FB75E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -131,6 +135,14 @@ Global
 		{61563895-C53E-4ABF-861D-2FB31DD912FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61563895-C53E-4ABF-861D-2FB31DD912FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61563895-C53E-4ABF-861D-2FB31DD912FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCFE3F4D-7004-4D26-9960-51AC752C55EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCFE3F4D-7004-4D26-9960-51AC752C55EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCFE3F4D-7004-4D26-9960-51AC752C55EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCFE3F4D-7004-4D26-9960-51AC752C55EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73179455-3373-4391-AC82-045038FB75E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73179455-3373-4391-AC82-045038FB75E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73179455-3373-4391-AC82-045038FB75E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73179455-3373-4391-AC82-045038FB75E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -162,6 +174,8 @@ Global
 		{79B7C0C4-57F7-4ED9-9227-5B592B00ABFD} = {3FDC91A0-9C35-4DE1-B049-6D12E9766905}
 		{C93EC5F7-EDE0-4EC6-A202-3209C2886CAD} = {79B7C0C4-57F7-4ED9-9227-5B592B00ABFD}
 		{61563895-C53E-4ABF-861D-2FB31DD912FD} = {A4734CBF-21F2-40D7-A348-F66738D543A5}
+		{FCFE3F4D-7004-4D26-9960-51AC752C55EE} = {9833A84B-0815-4360-A02C-E34F6B4416DC}
+		{73179455-3373-4391-AC82-045038FB75E0} = {9833A84B-0815-4360-A02C-E34F6B4416DC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {984A47BF-D041-40C8-A535-310DF89ADE8B}

@@ -3,7 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Store.Catalog.Infrastructure.Context;
+using Store.Catalog.Infra.Data.Context;
 
 namespace Store.Catalog.infrastructure.Migrations
 {

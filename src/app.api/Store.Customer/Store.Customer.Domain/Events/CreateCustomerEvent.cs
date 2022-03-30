@@ -1,7 +1,7 @@
 ﻿using Store.Shared.Core.Messages;
 using System;
 
-namespace Store.Customers.Domain.Entities.Events
+namespace Store.Customers.Domain.Events
 {
     public class CreateCustomerEvent : Event
     {

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Store.WebApp.MVC.Models.DTO.User.Request;
-using Store.WebApp.MVC.Models.User.Token;
+using Store.WebApp.MVC.Models.DTO.User.Token;
 using Store.WebApp.MVC.Services.Interfaces;
 using System;
 using System.Collections.Generic;

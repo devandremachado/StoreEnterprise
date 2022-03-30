@@ -6,7 +6,7 @@ using Store.Shared.Core.Messages;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Store.Catalog.Infrastructure.Context
+namespace Store.Catalog.Infra.Data.Context
 {
     public class CatalogContext : DbContext, IUnitOfWork
     {

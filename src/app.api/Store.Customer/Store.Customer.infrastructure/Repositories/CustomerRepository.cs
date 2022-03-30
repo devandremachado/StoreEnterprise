@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Store.Customers.Domain.Entities;
 using Store.Customers.Domain.Repositories;
-using Store.Customers.Infrastructure.Context;
+using Store.Customers.Infra.Data.Context;
 using Store.Shared.Core.Data;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Store.Customers.Infrastructure.Repositories
+namespace Store.Customers.Infra.Data.Repositories
 {
     public class CustomerRepository : ICustomerRepository
     {

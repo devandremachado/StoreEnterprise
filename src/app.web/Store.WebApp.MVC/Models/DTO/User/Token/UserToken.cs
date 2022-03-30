@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Store.WebApp.MVC.Models.ViewModels;
+using System.Collections.Generic;
 
-namespace Store.WebApp.MVC.Models.User.Token
+namespace Store.WebApp.MVC.Models.DTO.User.Token
 {
     public class UserTokenJwt
     {

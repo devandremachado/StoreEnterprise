@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Store.Customers.Domain.Entities.Events;
+using Store.Customers.Domain.Events;
 using System.Threading;
 using System.Threading.Tasks;
 

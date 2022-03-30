@@ -3,7 +3,7 @@ using Store.Shared.Core.Messages;
 using System;
 using ValueObject = Store.Shared.Core.ValueObjects;
 
-namespace Store.Customers.Domain.Entities.Commands
+namespace Store.Customers.Domain.Commands
 {
     public class CreateCustomerCommand : Command
     {

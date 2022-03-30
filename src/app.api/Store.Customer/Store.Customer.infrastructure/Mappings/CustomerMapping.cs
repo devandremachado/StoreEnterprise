@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Store.Customers.Domain.Entities;
 using Store.Shared.Core.ValueObjects;
 
-namespace Store.Customers.Infrastructure.Mappings
+namespace Store.Customers.Infra.Data.Mappings
 {
     public class CustomerMapping : IEntityTypeConfiguration<Customer>
     {

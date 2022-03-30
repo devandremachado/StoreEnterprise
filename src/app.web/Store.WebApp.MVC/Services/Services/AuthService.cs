@@ -1,15 +1,15 @@
 ﻿using Microsoft.Extensions.Options;
 using Store.WebApp.MVC.Extensions;
 using Store.WebApp.MVC.Helpers;
-using Store.WebApp.MVC.Models;
 using Store.WebApp.MVC.Models.DTO.User.Request;
-using Store.WebApp.MVC.Models.User.Token;
+using Store.WebApp.MVC.Models.DTO.User.Token;
+using Store.WebApp.MVC.Models.ViewModels;
 using Store.WebApp.MVC.Services.Interfaces;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Store.WebApp.MVC.Services
+namespace Store.WebApp.MVC.Services.Services
 {
     public class AuthService : Service, IAuthService
     {

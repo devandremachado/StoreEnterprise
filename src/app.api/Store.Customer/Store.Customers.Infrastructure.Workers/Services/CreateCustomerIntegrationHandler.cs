@@ -1,7 +1,7 @@
 ﻿using FluentValidation.Results;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Store.Customers.Domain.Entities.Commands;
+using Store.Customers.Domain.Commands;
 using Store.Shared.Core.Mediator;
 using Store.Shared.Core.Messages.Integration.Events.Request;
 using Store.Shared.Core.Messages.Integration.Events.Response;
@@ -10,7 +10,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Store.Customers.Infrastructure.Workers.Services
+namespace Store.Customers.Infra.Workers.Services
 {
     public class CreateCustomerIntegrationHandler : BackgroundService
     {
@@ -44,7 +44,7 @@ namespace Store.Customers.Infrastructure.Workers.Services
             return new ResponseMessage(result);
         }
 
-        private void OnConnect(Object s, EventArgs e)
+        private void OnConnect(object s, EventArgs e)
         {
             SetBusResponder();
         }

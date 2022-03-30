@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Store.Customers.Infrastructure.Context;
 using Microsoft.Extensions.Hosting;
+using Store.Customers.Infra.Data.Context;
 
 namespace Store.Customers.API.Configuration
 {

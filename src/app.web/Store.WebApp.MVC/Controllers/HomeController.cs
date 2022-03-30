@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Store.WebApp.MVC.Models;
+using Store.WebApp.MVC.Models.ViewModels;
 
 namespace Store.WebApp.MVC.Controllers
 {

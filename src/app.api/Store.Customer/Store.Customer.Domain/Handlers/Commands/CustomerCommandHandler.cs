@@ -1,8 +1,8 @@
 ﻿using FluentValidation.Results;
 using MediatR;
+using Store.Customers.Domain.Commands;
 using Store.Customers.Domain.Entities;
-using Store.Customers.Domain.Entities.Commands;
-using Store.Customers.Domain.Entities.Events;
+using Store.Customers.Domain.Events;
 using Store.Customers.Domain.Repositories;
 using Store.Shared.Core.Messages;
 using System.Threading;
