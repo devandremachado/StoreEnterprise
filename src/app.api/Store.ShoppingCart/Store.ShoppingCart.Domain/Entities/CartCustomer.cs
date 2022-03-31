@@ -21,5 +21,39 @@ namespace Store.Cart.Domain.Entities
         public Guid CustomerId { get; private set; }
         public decimal Amount { get; private set; }
         public List<CartItem> Items { get; set; } = new List<CartItem>();
+
+        private void CalculateTotalCartPrice()
+        {
+            Amount = Items.Sum(x => x.CalculatePrice());
+        }
+
+        public bool ProductAlreadyExistsInCart(CartItem item)
+        {
+            return Items.Any(x => x.ProductId == item.Id);
+        }
+
+        public CartItem GetProductById(Guid ProductId)
+        {
+            return Items.FirstOrDefault(x => x.ProductId == ProductId);
+        }
+
+        public void AddItem(CartItem item)
+        {
+            if (item.IsValid() == false) return;
+
+            item.LinkToCart(Id);
+
+            if (ProductAlreadyExistsInCart(item))
+            {
+                var itemExists = GetProductById(item.ProductId);
+                itemExists.AddQuantity(item.Quantity);
+
+                item = itemExists;
+                Items.Remove(itemExists);
+            }
+
+            Items.Add(item);
+            CalculateTotalCartPrice();
+        }
     }
 }

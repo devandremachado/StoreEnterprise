@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Store.Cart.Domain.Validators;
+using System;
 
 namespace Store.Cart.Domain.Entities
 {
@@ -18,5 +19,25 @@ namespace Store.Cart.Domain.Entities
 
         public Guid CartId { get; private set; }
         public CartCustomer CartCustomer { get; private set; }
+
+        internal void LinkToCart(Guid cartId)
+        {
+            CartId = cartId;
+        }
+        
+        internal decimal CalculatePrice()
+        {
+            return Quantity * Amount;
+        }
+
+        internal void AddQuantity(int quantity)
+        {
+            Quantity += quantity;
+        }
+
+        internal bool IsValid()
+        {
+            return new CartItemValidator().Validate(this).IsValid;
+        }
     }
 }
