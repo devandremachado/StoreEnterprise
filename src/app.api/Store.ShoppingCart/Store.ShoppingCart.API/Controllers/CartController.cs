@@ -6,6 +6,7 @@ using Store.Cart.Infra.Data.Context;
 using Store.WebAPI.Service.Controllers;
 using Store.WebAPI.Service.User.Interfaces;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Store.Cart.API.Controllers
@@ -30,16 +31,16 @@ namespace Store.Cart.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateItemInCart([FromBody] CartItem item)
+        public async Task<IActionResult> AddItemCart([FromBody] CartItem item)
         {
             var cart = await GetCartCustomer();
 
             if (cart is null)
                 HandleNewCart(item);
-
             else
                 HandleExistingCart(cart, item);
 
+            ValidateCart(cart);
             if (IsValid() == false)
                 return CustomResponse();
 
@@ -61,6 +62,10 @@ namespace Store.Cart.API.Controllers
 
             cart.UpdateItemQuantity(cartItem, item.Quantity);
 
+            ValidateCart(cart);
+            if (IsValid() == false)
+                return CustomResponse();
+
             _context.CartItem.Update(cartItem);
             _context.CartCustomer.Update(cart);
 
@@ -78,6 +83,10 @@ namespace Store.Cart.API.Controllers
             var cartItem = await GetValidateCartItem(productId, cart);
 
             if (cartItem is null)
+                return CustomResponse();
+
+            ValidateCart(cart);
+            if (IsValid() == false)
                 return CustomResponse();
 
             cart.RemoveItem(cartItem);
@@ -149,6 +158,15 @@ namespace Store.Cart.API.Controllers
             }
 
             return itemCart;
+        }
+
+        private bool ValidateCart(CartCustomer cart)
+        {
+            if (cart.IsValid())
+                return true;
+
+            cart.ValidationResult.Errors.ToList().ForEach(e => AddError(e.ErrorMessage));
+            return false;
         }
         #endregion
     }

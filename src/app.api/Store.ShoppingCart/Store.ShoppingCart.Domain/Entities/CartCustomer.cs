@@ -1,8 +1,8 @@
-﻿using System;
+﻿using FluentValidation.Results;
+using Store.Cart.Domain.Validators;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Store.Cart.Domain.Entities
 {
@@ -21,6 +21,8 @@ namespace Store.Cart.Domain.Entities
         public Guid CustomerId { get; private set; }
         public decimal Amount { get; private set; }
         public List<CartItem> Items { get; set; } = new List<CartItem>();
+        public ValidationResult ValidationResult { get; private set; }
+
 
         private void CalculateTotalCartPrice()
         {
@@ -39,8 +41,6 @@ namespace Store.Cart.Domain.Entities
 
         public void AddItem(CartItem item)
         {
-            if (item.IsValid() == false) return;
-
             item.LinkToCart(Id);
 
             if (ProductAlreadyExistsInCart(item))
@@ -58,9 +58,6 @@ namespace Store.Cart.Domain.Entities
 
         public void UpdateItem(CartItem item)
         {
-            if (item.IsValid() == false)
-                return;
-
             var itemExists = GetProductById(item.ProductId);
 
             Items.Remove(itemExists);
@@ -81,11 +78,19 @@ namespace Store.Cart.Domain.Entities
             CalculateTotalCartPrice();
         }
 
-
         public void UpdateItemQuantity(CartItem item, int quantity)
         {
             item.UpdateQuantity(quantity);
             UpdateItem(item);
+        }
+
+        public bool IsValid()
+        {
+            var errors = Items.SelectMany(item => new CartItemValidator().Validate(item).Errors).ToList();
+            errors.AddRange(new CartCustomerValidator().Validate(this).Errors);
+            ValidationResult = new ValidationResult(errors);
+
+            return ValidationResult.IsValid;
         }
 
     }

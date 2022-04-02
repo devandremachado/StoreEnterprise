@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Store.Cart.Domain.Entities;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace Store.Cart.Infra.Data.Context
@@ -25,6 +26,8 @@ namespace Store.Cart.Infra.Data.Context
                 property.SetMaxLength(100);
             }
 
+            IgnoreProperties(modelBuilder);
+
             modelBuilder.Entity<CartCustomer>()
                 .HasIndex(c => c.CustomerId);
 
@@ -37,6 +40,11 @@ namespace Store.Cart.Infra.Data.Context
             {
                 relation.DeleteBehavior = DeleteBehavior.ClientSetNull;
             }
+        }
+
+        private void IgnoreProperties(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Ignore<ValidationResult>();
         }
     }
 }
