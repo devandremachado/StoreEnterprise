@@ -30,7 +30,7 @@ namespace Store.Cart.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateItemInCart(CartItem item)
+        public async Task<IActionResult> CreateItemInCart([FromBody] CartItem item)
         {
             var cart = await GetCartCustomer();
 
@@ -44,24 +44,56 @@ namespace Store.Cart.API.Controllers
                 return CustomResponse();
 
             var result = await _context.SaveChangesAsync();
-            if (result <= 0) 
+            if (result <= 0)
                 AddError("Can't add item to shopping cart");
 
             return CustomResponse();
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateCartItem(Guid IdItem, CartItem item)
+        public async Task<IActionResult> UpdateCartItem([FromQuery] Guid productId, [FromBody] CartItem item)
         {
+            var cart = await GetCart();
+            var cartItem = await GetValidateCartItem(productId, cart, item);
+
+            if (cartItem is null)
+                return CustomResponse();
+
+            cart.UpdateItemQuantity(cartItem, item.Quantity);
+
+            _context.CartItem.Update(cartItem);
+            _context.CartCustomer.Update(cart);
+
+            var result = await _context.SaveChangesAsync();
+            if (result <= 0)
+                AddError("Couldn't  update item to shopping cart");
+
             return CustomResponse();
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteCartItem(Guid IdItem)
+        public async Task<IActionResult> DeleteCartItem([FromQuery] Guid productId)
         {
+            var cart = await GetCartCustomer();
+            var cartItem = await GetValidateCartItem(productId, cart);
+
+            if (cartItem is null)
+                return CustomResponse();
+
+            cart.RemoveItem(cartItem);
+
+            _context.CartItem.Remove(cartItem);
+            _context.CartCustomer.Update(cart);
+
+            var result = await _context.SaveChangesAsync();
+            if (result <= 0)
+                AddError("Couldn't delete item to shopping cart");
+
             return CustomResponse();
         }
 
+
+        #region Private Methods
         private async Task<CartCustomer> GetCartCustomer()
         {
             return await _context.CartCustomer
@@ -93,5 +125,31 @@ namespace Store.Cart.API.Controllers
 
             _context.CartCustomer.Update(cart);
         }
+
+        private async Task<CartItem> GetValidateCartItem(Guid productId, CartCustomer cart, CartItem item = null)
+        {
+            if (item is not null && productId != item.ProductId)
+            {
+                AddError("Id Item is invalid");
+                return null;
+            }
+
+            if (cart is null)
+            {
+                AddError("Cart Not Found");
+                return null;
+            }
+
+            var itemCart = await _context.CartItem.FirstOrDefaultAsync(x => x.CartId == cart.Id && x.ProductId == productId);
+
+            if (itemCart is null || cart.ProductAlreadyExistsInCart(item) == false)
+            {
+                AddError("Item not found on Cart");
+                return null;
+            }
+
+            return itemCart;
+        }
+        #endregion
     }
 }

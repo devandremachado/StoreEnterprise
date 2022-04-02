@@ -20,19 +20,24 @@ namespace Store.Cart.Domain.Entities
         public Guid CartId { get; private set; }
         public CartCustomer CartCustomer { get; private set; }
 
-        internal void LinkToCart(Guid cartId)
+        public void LinkToCart(Guid cartId)
         {
             CartId = cartId;
         }
-        
-        internal decimal CalculatePrice()
+
+        public decimal CalculatePrice()
         {
             return Quantity * Amount;
         }
 
-        internal void AddQuantity(int quantity)
+        public void AddQuantity(int quantity)
         {
             Quantity += quantity;
+        }
+
+        public void UpdateQuantity(int quantity)
+        {
+            Quantity = quantity;
         }
 
         internal bool IsValid()

@@ -55,5 +55,38 @@ namespace Store.Cart.Domain.Entities
             Items.Add(item);
             CalculateTotalCartPrice();
         }
+
+        public void UpdateItem(CartItem item)
+        {
+            if (item.IsValid() == false)
+                return;
+
+            var itemExists = GetProductById(item.ProductId);
+
+            Items.Remove(itemExists);
+            Items.Add(item);
+
+            CalculateTotalCartPrice();
+        }
+
+        public void RemoveItem(CartItem item)
+        {
+            var itemExists = GetProductById(item.ProductId);
+
+            if (itemExists is null) 
+                throw new Exception("The product doesn't belong to the order");
+
+            Items.Remove(itemExists);
+
+            CalculateTotalCartPrice();
+        }
+
+
+        public void UpdateItemQuantity(CartItem item, int quantity)
+        {
+            item.UpdateQuantity(quantity);
+            UpdateItem(item);
+        }
+
     }
 }
